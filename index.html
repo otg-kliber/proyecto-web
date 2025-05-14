@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Principal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #2d66bd; 
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #003366; 
+      color: white;
+      padding: 20px;
+      height: 120px;
+      width: 100%;
+    }
+
+    .logo-container {
+      flex: 1;
+      text-align: center;
+    }
+
+    .logo {
+      height: 80px;
+    }
+
+    .title {
+      flex: 5;
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    .location-select {
+      flex: 2;
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .location-select select {
+      width: 180px;
+    }
+
+    .main {
+      display: flex;
+      min-height: calc(100vh - 200px); 
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .sidebar {
+      width: 10%;
+      background-color: #96d2d1;
+      padding: 60px;
+      height: 100%;
+      border-radius: 40px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin-bottom: 40px;
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .sidebar a:hover {
+      color: #3881ee;
+      text-decoration: underline;
+    }
+
+    .content {
+      flex: 1;
+      background-color: #96d2d1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 65px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-block {
+      background-color: #eafafa;
+      border-left: 5px solid #007acc;
+      padding: 15px 20px;
+      border-radius: 8px;
+    }
+
+    .info-block strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #003366;
+      font-size: 16px;
+    }
+
+    .info-block span {
+      color: #222;
+      font-size: 15px;
+    }
+
+    .footer {
+      background-color: #003366; 
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      padding: 15px 10px;
+      width: 100%;
+    }
+    .sidebar-gif{
+      width: 100px;
+    }
+    .ContenedorMenu{
+      width: 200px;
+    }
+    .ContenedorMenu div{
+      width: 100%;
+      height: 50%;
+    }
+    .ContenedorMenu img{
+      width: 200px;
+      height: 240px;
+    }
+    
+  </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="ChatGPT Image 11 may 2025, 21_15_00.png" alt="Logo" class="logo">
+            </div>
+            <div class="title">
+                <h2>inicio/buscar local</h2>
+            </div>
+            <div class="location-select">
+                <span>usted esta en:</span>
+                <select id="citySelect" class="form-select" onchange="updateInfo()">
+                    <option value="sahagun">sahagun</option>
+                    <option value="planeta">planeta rica</option>
+                    <option value="monteria">monteria</option>
+                </select>
+            </div>
+        </div>
+
+        
+        <div class="main">
+            <div class="ContenedorMenu">
+            <div class="sidebar">
+                <a href="index.html">inicio</a>
+                <a href="#" id="linkMaps" target="_blank">maps</a>
+                <a href="soporte.html">soporte</a>
+              </div>
+              <img src="klipartz.com.png" alt="Animación divertida" width="5rem" height="auto" class="sidebar-gif">
+              </div>
+
+
+
+           <div class="content">
+    <div class="info-block">
+        <strong>Dirección del local:</strong>
+        <span id="direccion"></span>
+    </div>
+    <div class="info-block">
+        <strong>Número de teléfono:</strong>
+        <span id="telefono"></span>
+    </div>
+    <div class="info-block">
+        <strong>Referencias:</strong>
+        <span id="referencias"></span>
+    </div>
+</div>
+
+        </div>
+
+       
+        <div class="footer">
+            © 2025 desarrollo web - 472 todos los derechos reservados a sus autores
+        </div>
+    </div>
+
+    <script>
+        const datos = {
+            sahagun: {
+                direccion: "Calle 18, barrio San Roque",
+                telefono: "3017366243",
+                referencias: "Casa de dos pisos a dos cuadras después de la Registraduría",
+                maps: "https://www.google.com/maps?q=Calle+18,+barrio+San+Roque,+Sahagún"
+            },
+            planeta: {
+                direccion: "Calle 19, Cra 9, barrio Centro",
+                telefono: "3203303428",
+                referencias: "Tienda de celulares al lado del bar Bahía",
+                maps: "https://www.google.com/maps?q=Calle+19,+Cra+9,+barrio+Centro,+Planeta+Rica"
+            },
+            monteria: {
+                direccion: "Cra 6 #30-3 barrio centro",
+                telefono: "(4) 785 6975",
+                referencias: "loca 105",
+                maps: "https://www.google.com/maps?q=Cra+9,+30-3,+barrio+Centro,+monteria"
+            }
+        };
+
+        function updateInfo() {
+            const ciudad = document.getElementById('citySelect').value;
+            const info = datos[ciudad];
+            document.getElementById('direccion').textContent = info.direccion;
+            document.getElementById('telefono').textContent = info.telefono;
+            document.getElementById('referencias').textContent = info.referencias;
+            document.getElementById('linkMaps').href = info.maps;
+        }
+
+        window.onload = updateInfo;
+    </script>
+</body>
+</html>
